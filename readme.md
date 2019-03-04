@@ -2,6 +2,9 @@
 ## Project Architecture
 ![Alt text](UserManagement.png?raw=true "domain_model")
 
+## Database Model
+![Alt text](UserManagementDBModel.png?raw=true "database_model")
+
 ### User
     Params
     - name: string
