@@ -17,3 +17,6 @@
     - name: string
 - Create group  `POST /group` with payload group params
 - Delete group  `DELETE /group/{id}`
+
+## Run Tests
+`vendor/bin/phpunit`
