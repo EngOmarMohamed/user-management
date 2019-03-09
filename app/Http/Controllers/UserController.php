@@ -10,6 +10,7 @@ use App\Http\Services\AssignGroupService;
 use App\Http\Services\CreateUserService;
 use App\Http\Services\DeleteUserService;
 use App\Http\Services\DetachGroupService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
 class UserController extends Controller
@@ -22,7 +23,7 @@ class UserController extends Controller
      * @param CreateUserService $createUserService
      * @return \Illuminate\Http\JsonResponse
      */
-    public function create(CreateUserRequest $request, CreateUserService $createUserService)
+    public function create(CreateUserRequest $request, CreateUserService $createUserService): JsonResponse
     {
         $params = $request->only('name', 'email');
 
@@ -43,7 +44,7 @@ class UserController extends Controller
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function delete(DeleteUserRequest $request, DeleteUserService $deleteUserService)
+    public function delete(DeleteUserRequest $request, DeleteUserService $deleteUserService): JsonResponse
     {
         $id = $request->only('id');
 
@@ -62,7 +63,7 @@ class UserController extends Controller
      * @param AssignGroupService $assignGroupService
      * @return \Illuminate\Http\JsonResponse
      */
-    public function assignGroup(AssignGroupRequest $request, AssignGroupService $assignGroupService)
+    public function assignGroup(AssignGroupRequest $request, AssignGroupService $assignGroupService): JsonResponse
     {
         $params = $request->only(['user_id', 'group_id']);
         $assigned = $assignGroupService->make($params);
@@ -70,7 +71,7 @@ class UserController extends Controller
         if ($assigned) {
             return \response()->json(['message' => 'Assigned Successfully'], Response::HTTP_CREATED);
         }
-        return \response()->json(['message' => 'Already part of'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        return \response()->json(['message' => 'Already part of'], Response::HTTP_OK);
     }
 
     /**
@@ -80,7 +81,7 @@ class UserController extends Controller
      * @param DetachGroupService $detachGroupService
      * @return \Illuminate\Http\JsonResponse
      */
-    public function detachGroup(DetachGroupRequest $request, DetachGroupService $detachGroupService)
+    public function detachGroup(DetachGroupRequest $request, DetachGroupService $detachGroupService): JsonResponse
     {
         $params = $request->only(['user_id', 'group_id']);
         $assigned = $detachGroupService->make($params);
@@ -88,7 +89,7 @@ class UserController extends Controller
         if ($assigned) {
             return \response()->json(['message' => 'Detached Successfully'], Response::HTTP_CREATED);
         }
-        return \response()->json(['message' => 'Not assigned'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        return \response()->json(['message' => 'Not assigned'], Response::HTTP_OK);
 
     }
 }

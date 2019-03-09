@@ -6,6 +6,7 @@ use App\Http\Requests\CreateGroupRequest;
 use App\Http\Requests\DeleteGroupRequest;
 use App\Http\Services\CreateGroupService;
 use App\Http\Services\DeleteGroupService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
 class GroupController extends Controller
@@ -18,13 +19,17 @@ class GroupController extends Controller
      * @param CreateGroupService $createGroupService
      * @return \Illuminate\Http\JsonResponse
      */
-    public function create(CreateGroupRequest $request, CreateGroupService $createGroupService)
+    public function create(CreateGroupRequest $request, CreateGroupService $createGroupService): JsonResponse
     {
         $params = $request->only('name');
 
         $created = $createGroupService->make($params);
 
-        return \response()->json($created, Response::HTTP_CREATED);
+        if ($created) {
+            return \response()->json($created, Response::HTTP_CREATED);
+        }
+        return \response()->json(['message' => 'Error in create'], Response::HTTP_INTERNAL_SERVER_ERROR);
+
     }
 
     /**
@@ -34,7 +39,7 @@ class GroupController extends Controller
      * @param DeleteGroupService $deleteGroupService
      * @return \Illuminate\Http\JsonResponse
      */
-    public function delete(DeleteGroupRequest $request, DeleteGroupService $deleteGroupService)
+    public function delete(DeleteGroupRequest $request, DeleteGroupService $deleteGroupService): JsonResponse
     {
         $id = $request->only('id');
 

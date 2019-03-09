@@ -8,7 +8,7 @@ use App\Http\Models\User;
 class AssignGroupService implements BaseService
 {
 
-    function make($params)
+    function make($params): bool
     {
         $user = User::find($params['user_id']);
 

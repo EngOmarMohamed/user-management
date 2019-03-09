@@ -7,7 +7,7 @@ use App\Http\Models\Group;
 class DeleteGroupService implements BaseService
 {
 
-    function make($id)
+    public function make($id): bool
     {
         // select * from `groups` where exists
         // (select * from `users` inner join `group_user` on `users`.`id` = `group_user`.`user_id` where `groups`.`id` = `group_user`.`group_id`)

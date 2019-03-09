@@ -9,12 +9,12 @@ class AssignGroupRequest extends BaseRequest
      * Check if the user is authorized
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'user_id' => 'required|exists:users,id',
@@ -22,7 +22,7 @@ class AssignGroupRequest extends BaseRequest
         ];
     }
 
-    public function all($keys = null)
+    public function all($keys = null): array
     {
         $data = parent::all($keys);
         $data['user_id'] = $this->route()[2]['user_id'];

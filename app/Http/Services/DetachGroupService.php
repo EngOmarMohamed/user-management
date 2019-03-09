@@ -7,7 +7,7 @@ use App\Http\Models\User;
 class DetachGroupService implements BaseService
 {
 
-    function make($params)
+    function make($params): bool
     {
         $user = User::find($params['user_id']);
         $detached = $user->groups()->detach($params['group_id']);

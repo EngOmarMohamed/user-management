@@ -9,7 +9,7 @@ class CreateUserRequest extends BaseRequest
      * Check if the user is authorized
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -18,7 +18,7 @@ class CreateUserRequest extends BaseRequest
      * Rules to be applied to attributes
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'name' => 'required|string',
